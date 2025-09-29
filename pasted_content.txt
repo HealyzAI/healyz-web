@@ -1,0 +1,166 @@
+Hiển thị Gói Dịch Vụ (Plans Section)
+Giao diện hiển thị bao gồm 4 gói:
+
+Starter
+
+Plus
+
+Premium
+
+Enterprise
+
+Mỗi gói gồm:
+
+Tên gói
+
+Giá (AUD/tháng)
+
+Danh sách keywords tính năng chính (ví dụ: Basic health tracking, Medical cost prediction…)
+
+Biểu tượng chấm tròn có dấu sao (⭐) cuối hoặc kế bên danh sách keyword để xem chi tiết tính năng (mở popup/tooltip).
+
+🎨 Yêu cầu UX/UI phần Tooltip/Popup chi tiết:
+Giao diện rõ ràng, dễ đọc, chia dòng theo từng tính năng
+
+Responsive: hoạt động mượt trên cả desktop và mobile
+
+Có nút đóng hoặc tự tắt khi người dùng click ra ngoài
+
+Tooltip có thể dùng dạng hover (desktop) hoặc click (mobile) tùy nền tảng
+
+🧾 Chi tiết Gói Dịch Vụ
+🟩 Starter Plan
+Giá: $0 AUD/tháng
+Tính năng chính:
+
+Basic health tracking
+
+Basic medical cost prediction
+
+Basic nutrition suggestions
+
+Email support (business hours)
+
+Access to community forum
+
+Monthly health tips newsletter
+⭐ (nhấn để xem chi tiết)
+
+📋 Mô tả chi tiết:
+
+Basic health tracking: Theo dõi BMI, huyết áp, giấc ngủ cơ bản.
+
+Medical cost prediction: Ước lượng chi phí y tế dựa vào dữ liệu cá nhân cơ bản.
+
+Nutrition suggestions: Gợi ý thực đơn cơ bản theo tuổi và lối sống.
+
+Email support: Hỗ trợ qua email trong giờ làm việc.
+
+Community forum: Tham gia cộng đồng người dùng.
+
+Health tips newsletter: Gửi mẹo chăm sóc sức khỏe hàng tháng.
+
+🟨 Plus Plan
+Giá: $18.99 AUD/tháng
+Tính năng chính:
+
+Bao gồm tất cả Starter features
+
+Detailed medical cost prediction
+
+Insurance optimization
+
+BNPL for healthcare
+
+Priority email support
+
+Access to webinars
+
+Integration with Google Fit / Apple Health
+
+Basic data export (CSV)
+⭐ (nhấn để xem chi tiết)
+
+📋 Mô tả chi tiết:
+
+Detailed medical cost prediction: Phân tích chi tiết chi phí y tế theo bệnh nền, vùng sống.
+
+Insurance optimization: Gợi ý gói bảo hiểm phù hợp nhất.
+
+BNPL for healthcare: Chia nhỏ thanh toán chi phí theo 3/6/12 tháng.
+
+Priority support: Hỗ trợ ưu tiên, trả lời nhanh hơn.
+
+Health app sync: Kết nối dữ liệu với ứng dụng sức khỏe phổ biến.
+
+Webinars & tutorials: Tham gia lớp hướng dẫn sử dụng AI.
+
+Data export: Xuất dữ liệu thành tệp CSV.
+
+🟧 Premium Plan
+Giá: $34.99 AUD/tháng
+Tính năng chính:
+
+Bao gồm tất cả Plus features
+
+Personalized AI nutrition
+
+Wearable device integration
+
+Advanced health dashboard
+
+24/7 support
+
+Custom reminders & alerts
+
+Unlimited data export & backup
+
+Early access to new features
+⭐ (nhấn để xem chi tiết)
+
+📋 Mô tả chi tiết:
+
+AI nutrition: Lập thực đơn cá nhân hóa dựa trên hồ sơ y tế.
+
+Wearable sync: Kết nối smartwatch/vòng đeo thông minh.
+
+Advanced dashboard: Dashboard trực quan với biểu đồ xu hướng sức khỏe & tài chính.
+
+24/7 support: Hỗ trợ đa kênh mọi lúc.
+
+Reminders & alerts: Gợi nhớ uống thuốc, lịch khám…
+
+Unlimited export: Xuất toàn bộ dữ liệu không giới hạn.
+
+Early access: Truy cập sớm các tính năng mới/beta.
+
+🟥 Enterprise Plan
+Giá: Liên hệ
+Tính năng chính:
+
+Bao gồm tất cả Premium features
+
+API access & system integration
+
+Advanced analytics & custom reports
+
+Dedicated account manager
+
+Role-based access control
+
+SLA & onboarding support
+⭐ (nhấn để xem chi tiết)
+
+📋 Mô tả chi tiết:
+
+API access: Tích hợp trực tiếp vào hệ thống nội bộ qua API.
+
+System integration: Tùy chỉnh và hỗ trợ kết nối nền tảng của doanh nghiệp.
+
+Analytics & BI: Báo cáo phân tích chuyên sâu cho tổ chức.
+
+Account manager: Chăm sóc riêng cho tổ chức của bạn.
+
+Role management: Phân quyền và kiểm soát vai trò người dùng.
+
+SLA & onboarding: Cam kết hỗ trợ theo thỏa thuận và onboarding team.
