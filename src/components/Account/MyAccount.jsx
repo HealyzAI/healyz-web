@@ -6,11 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { useAuth } from '../../contexts/AuthContext';
 
 const MyAccount = () => {
-  const { currentUser, userProfile, logout } = useAuth();
+  const { currentUser, userProfile, signOut } = useAuth();
 
   const handleLogout = async () => {
     try {
-      await logout();
+      await signOut();
     } catch (error) {
       console.error('Failed to log out:', error);
     }
@@ -94,7 +94,7 @@ const MyAccount = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">
-                      {userProfile.displayName || currentUser.displayName || 'User'}
+                      {userProfile?.display_name || currentUser?.user_metadata?.display_name || currentUser?.user_metadata?.full_name || currentUser?.email?.split('@')[0] || 'User'}
                     </h3>
                     <p className="text-gray-600">{currentUser.email}</p>
                   </div>
