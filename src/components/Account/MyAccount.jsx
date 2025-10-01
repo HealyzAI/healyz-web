@@ -94,7 +94,7 @@ const MyAccount = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">
-                      {userProfile?.display_name || currentUser?.user_metadata?.display_name || currentUser?.user_metadata?.full_name || currentUser?.email?.split('@')[0] || 'User'}
+                      {userProfile?.username || currentUser?.user_metadata?.display_name || currentUser?.user_metadata?.full_name || currentUser?.email?.split('@')[0] || 'User'}
                     </h3>
                     <p className="text-gray-600">{currentUser.email}</p>
                   </div>

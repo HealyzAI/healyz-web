@@ -63,7 +63,7 @@ const Header = () => {
                     <User className="w-4 h-4 text-primary" />
                   </div>
                   <span className="text-sm font-medium">
-                    {userProfile?.display_name || currentUser?.user_metadata?.display_name || currentUser?.user_metadata?.full_name || currentUser?.email?.split('@')[0] || 'User'}
+                    {userProfile?.username || currentUser?.user_metadata?.display_name || currentUser?.user_metadata?.full_name || currentUser?.email?.split('@')[0] || 'User'}
                   </span>
                   {userProfile?.plan && (
                     <span className={`px-2 py-1 text-xs rounded-full ${

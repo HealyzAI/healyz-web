@@ -120,31 +120,60 @@ export const AuthProvider = ({ children }) => {
   // Get user profile
   const getUserProfile = async (userId) => {
     try {
-      const { data, error } = await supabase
-        .from(TABLES.USERS)
-        .select('*')
-        .eq('id', userId)
-        .single();
-
+      // Since the new schema requires password_hash in users table,
+      // we'll use the auth.users data instead of custom users table
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
       if (error) throw error;
-      return data;
+      
+      // Return user data from auth.users with plan info from subscriptions
+      if (user) {
+        // Get subscription info
+        const { data: subscription } = await supabase
+          .from(TABLES.SUBSCRIPTIONS)
+          .select(`
+            *,
+            plans (
+              name,
+              price,
+              features
+            )
+          `)
+          .eq('user_id', user.id)
+          .eq('status', 'active')
+          .single();
+
+        return {
+          id: user.id,
+          email: user.email,
+          full_name: user.user_metadata?.full_name || '',
+          username: user.user_metadata?.display_name || '',
+          created_at: user.created_at,
+          plan: subscription?.plans?.name || 'free',
+          subscription: subscription
+        };
+      }
+      
+      return null;
     } catch (error) {
       console.error('Get user profile error:', error);
       return null;
     }
   };
 
-  // Save prediction
+  // Save AI result
   const savePrediction = async (predictionData) => {
     try {
       if (!currentUser) throw new Error('No user logged in');
 
       const { data, error } = await supabase
-        .from(TABLES.PREDICTIONS)
+        .from(TABLES.AI_RESULTS)
         .insert([
           {
             user_id: currentUser.id,
-            ...predictionData,
+            health_score: predictionData.health_score || 0,
+            ai_message: predictionData.ai_message || '',
+            extra_data: predictionData.extra_data || {},
             created_at: new Date().toISOString()
           }
         ])
@@ -154,18 +183,18 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error;
       return { data, error: null };
     } catch (error) {
-      console.error('Save prediction error:', error);
+      console.error('Save AI result error:', error);
       return { data: null, error };
     }
   };
 
-  // Get user predictions
+  // Get user AI results
   const getUserPredictions = async () => {
     try {
       if (!currentUser) throw new Error('No user logged in');
 
       const { data, error } = await supabase
-        .from(TABLES.PREDICTIONS)
+        .from(TABLES.AI_RESULTS)
         .select('*')
         .eq('user_id', currentUser.id)
         .order('created_at', { ascending: false });
@@ -173,7 +202,7 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error;
       return { data, error: null };
     } catch (error) {
-      console.error('Get predictions error:', error);
+      console.error('Get user AI results error:', error);
       return { data: null, error };
     }
   };
@@ -200,43 +229,35 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state change:', event, session?.user);
+        
         if (session?.user) {
           setCurrentUser(session.user);
+          console.log('Current user set:', session.user);
           
           // Get user profile
           let profile = await getUserProfile(session.user.id);
+          console.log('User profile fetched:', profile);
           
           // If no profile exists, create one (for new signups)
           if (!profile && session.user.user_metadata) {
+            console.log('Creating new profile for user:', session.user.id);
             try {
-              const { error: profileError } = await supabase
-                .from(TABLES.USERS)
-                .insert([
-                  {
-                    id: session.user.id,
-                    email: session.user.email,
-                    plan: PLAN_TYPES.STARTER,
-                    created_at: new Date().toISOString(),
-                    full_name: session.user.user_metadata.full_name || '',
-                    display_name: session.user.user_metadata.display_name || ''
-                  }
-                ]);
-
-              if (!profileError) {
-                // Get the newly created profile
-                profile = await getUserProfile(session.user.id);
-              } else {
-                console.error('Error creating user profile:', profileError);
-              }
+              // Note: In the new schema, users table requires password_hash
+              // Since we're using Supabase Auth, we'll skip creating profile in users table
+              // and rely on auth.users table instead
+              console.log('Skipping profile creation - using auth.users table');
             } catch (error) {
               console.error('Error creating user profile:', error);
             }
           }
           
           setUserProfile(profile);
+          console.log('User profile set:', profile);
         } else {
           setCurrentUser(null);
           setUserProfile(null);
+          console.log('User logged out');
         }
         setLoading(false);
       }
