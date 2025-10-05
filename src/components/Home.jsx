@@ -60,13 +60,17 @@ const Home = () => {
                 optimize insurance, and personalize nutrition for a healthier life.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  Get Started Free
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                <Button size="lg" variant="outline">
-                  View Demo
-                </Button>
+                <Link to="/register">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                    Get Started Free
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button size="lg" variant="outline">
+                    View Demo
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="relative">
@@ -351,13 +355,17 @@ const Home = () => {
             Join thousands of users who trust Healyz to manage their healthcare finances and nutrition.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-card text-primary hover:bg-card/90">
-              Get Started Free Now
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-card text-card hover:bg-card hover:text-primary">
-              Contact for Consultation
-            </Button>
+            <Link to="/register">
+              <Button size="lg" className="bg-card text-primary hover:bg-card/90">
+                Get Started Free Now
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button size="lg" variant="outline" className="border-card text-card hover:bg-card hover:text-primary">
+                Contact for Consultation
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
