@@ -12,19 +12,33 @@ const MyAccount = () => {
     username: ''
   });
 
+  console.log('MyAccount render - currentUser:', currentUser);
+  console.log('MyAccount render - userProfile:', userProfile);
+  console.log('MyAccount render - loading:', loading);
+
   useEffect(() => {
+    console.log('MyAccount useEffect - currentUser changed:', currentUser);
     if (currentUser) {
       loadUserData();
+    } else {
+      setLoading(false);
     }
   }, [currentUser]);
 
   const loadUserData = async () => {
     try {
+      console.log('Loading user data...');
       setLoading(true);
       
       // Load AI results
-      const { data: results } = await getUserPredictions();
-      setAiResults(results || []);
+      try {
+        const { data: results } = await getUserPredictions();
+        console.log('AI results loaded:', results);
+        setAiResults(results || []);
+      } catch (error) {
+        console.error('Error loading AI results:', error);
+        setAiResults([]);
+      }
       
       // Set initial edit values
       setEditedProfile({
@@ -34,6 +48,7 @@ const MyAccount = () => {
     } catch (error) {
       console.error('Error loading user data:', error);
     } finally {
+      console.log('User data loading completed');
       setLoading(false);
     }
   };
