@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   // Sign up function
   const signUp = async (email, password, fullName, username) => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -56,6 +57,7 @@ export const AuthProvider = ({ children }) => {
   // Sign in function
   const signIn = async (email, password) => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -72,6 +74,7 @@ export const AuthProvider = ({ children }) => {
   // Sign out function
   const signOut = async () => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       
@@ -87,6 +90,7 @@ export const AuthProvider = ({ children }) => {
   // Google sign in function
   const signInWithGoogle = async () => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -105,6 +109,7 @@ export const AuthProvider = ({ children }) => {
   // Update user profile
   const updateUserProfile = async (updates) => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       if (!currentUser) throw new Error('No user logged in');
 
       const { data, error } = await supabase
@@ -127,6 +132,7 @@ export const AuthProvider = ({ children }) => {
   // Get user profile
   const getUserProfile = async (userId) => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       // First, try to get the profile from our custom users table
       let { data: profile, error: profileError } = await supabase
         .from(TABLES.USERS)
@@ -144,14 +150,14 @@ export const AuthProvider = ({ children }) => {
         .eq('id', userId)
         .single();
 
+      console.log('getUserProfile: Attempting to fetch profile for userId:', userId);
       if (profileError && profileError.code !== 'PGRST116') { // PGRST116 means no rows found
-        console.error('Error fetching custom user profile:', profileError);
-        // If there's an error other than 
-
+        console.error('getUserProfile: Error fetching custom user profile:', profileError);
         throw profileError;
       }
 
       if (profile) {
+        console.log('getUserProfile: Profile found in custom table:', profile);
         // Format the profile data to match the expected structure
         return {
           id: profile.id,
@@ -169,11 +175,16 @@ export const AuthProvider = ({ children }) => {
           subscription: profile.subscriptions?.[0] || null
         };
       } else {
+        console.log('getUserProfile: No profile found in custom table, attempting to create one.');
         // If no profile in custom table, create one based on auth.user data
         const { data: { user }, error: authUserError } = await supabase.auth.getUser();
-        if (authUserError) throw authUserError;
+        if (authUserError) {
+          console.error('getUserProfile: Error fetching auth user:', authUserError);
+          throw authUserError;
+        }
 
         if (user) {
+          console.log('getUserProfile: Auth user found:', user);
           const newProfile = {
             id: user.id,
             full_name: user.user_metadata?.full_name || 
@@ -183,13 +194,14 @@ export const AuthProvider = ({ children }) => {
             email: user.email,
             created_at: user.created_at
           };
+          console.log('getUserProfile: New profile to insert:', newProfile);
 
           const { error: insertError } = await supabase
             .from(TABLES.USERS)
             .insert(newProfile);
 
           if (insertError) {
-            console.error("Error inserting new profile into custom users table:", insertError);
+            console.error("getUserProfile: Error inserting new profile into custom users table:", insertError);
             // Even if insert fails, return a basic profile from auth.user
             return {
               id: user.id,
@@ -201,6 +213,7 @@ export const AuthProvider = ({ children }) => {
               subscription: null
             };
           }
+          console.log('getUserProfile: New profile inserted successfully.');
 
           // Try to fetch again after insert to get subscription info
           let { data: updatedProfile, error: updatedProfileError } = await supabase
@@ -220,9 +233,10 @@ export const AuthProvider = ({ children }) => {
             .single();
 
           if (updatedProfileError) {
-            console.error("Error fetching updated profile after insert:", updatedProfileError);
+            console.error("getUserProfile: Error fetching updated profile after insert:", updatedProfileError);
             return newProfile; // Return basic profile if fetch fails
           }
+          console.log('getUserProfile: Updated profile fetched after insert:', updatedProfile);
 
           return {
             id: updatedProfile.id,
@@ -241,7 +255,7 @@ export const AuthProvider = ({ children }) => {
           };
         }
       }
-      
+      console.log('getUserProfile: No user or profile found, returning null.');
       return null;
     } catch (error) {
       console.error("Get user profile error:", error);
@@ -252,6 +266,7 @@ export const AuthProvider = ({ children }) => {
   // Save AI result
   const savePrediction = async (predictionData) => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       if (!currentUser) throw new Error("No user logged in");
 
       const { data, error } = await supabase
@@ -279,6 +294,7 @@ export const AuthProvider = ({ children }) => {
   // Get user AI results
   const getUserPredictions = async () => {
     try {
+      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
       if (!currentUser) throw new Error("No user logged in");
 
       const { data, error } = await supabase
