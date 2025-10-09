@@ -18,8 +18,9 @@ export const AuthProvider = ({ children }) => {
 
   // Sign up function
   const signUp = async (email, password, fullName, username) => {
+    console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -31,10 +32,15 @@ export const AuthProvider = ({ children }) => {
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("signUp: Supabase auth signUp error:", error);
+        throw error;
+      }
+      console.log("signUp: Supabase auth signUp successful, data:", data);
 
       // If user is created successfully, insert into our custom users table
       if (data.user) {
+        console.log("signUp: User created in auth.users, attempting to insert into custom users table.");
         const { error: profileError } = await supabase
           .from(TABLES.USERS)
           .insert({
@@ -44,7 +50,11 @@ export const AuthProvider = ({ children }) => {
             email: email,
             created_at: data.user.created_at
           });
-        if (profileError) throw profileError;
+        if (profileError) {
+          console.error("signUp: Error inserting profile into custom users table:", profileError);
+          throw profileError;
+        }
+        console.log("signUp: Profile successfully inserted into custom users table.");
       }
 
       return { data, error: null };
@@ -57,7 +67,7 @@ export const AuthProvider = ({ children }) => {
   // Sign in function
   const signIn = async (email, password) => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -74,7 +84,7 @@ export const AuthProvider = ({ children }) => {
   // Sign out function
   const signOut = async () => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       
@@ -90,7 +100,7 @@ export const AuthProvider = ({ children }) => {
   // Google sign in function
   const signInWithGoogle = async () => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -109,7 +119,7 @@ export const AuthProvider = ({ children }) => {
   // Update user profile
   const updateUserProfile = async (updates) => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       if (!currentUser) throw new Error('No user logged in');
 
       const { data, error } = await supabase
@@ -132,7 +142,7 @@ export const AuthProvider = ({ children }) => {
   // Get user profile
   const getUserProfile = async (userId) => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       // First, try to get the profile from our custom users table
       let { data: profile, error: profileError } = await supabase
         .from(TABLES.USERS)
@@ -266,7 +276,7 @@ export const AuthProvider = ({ children }) => {
   // Save AI result
   const savePrediction = async (predictionData) => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       if (!currentUser) throw new Error("No user logged in");
 
       const { data, error } = await supabase
@@ -294,7 +304,7 @@ export const AuthProvider = ({ children }) => {
   // Get user AI results
   const getUserPredictions = async () => {
     try {
-      console.log("signUp: Attempting to sign up user with email:", email, "fullName:", fullName, "username:", username);
+
       if (!currentUser) throw new Error("No user logged in");
 
       const { data, error } = await supabase
