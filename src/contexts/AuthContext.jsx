@@ -38,25 +38,6 @@ export const AuthProvider = ({ children }) => {
       }
       console.log("signUp: Supabase auth signUp successful, data:", data);
 
-      // If user is created successfully, insert into our custom users table
-      if (data.user) {
-        console.log("signUp: User created in auth.users, attempting to insert into custom users table.");
-        const { error: profileError } = await supabase
-          .from(TABLES.USERS)
-          .insert({
-            id: data.user.id,
-            full_name: fullName,
-            username: username,
-            email: email,
-            created_at: data.user.created_at
-          });
-        if (profileError) {
-          console.error("signUp: Error inserting profile into custom users table:", profileError);
-          throw profileError;
-        }
-        console.log("signUp: Profile successfully inserted into custom users table.");
-      }
-
       return { data, error: null };
     } catch (error) {
       console.error('Sign up error:', error);
@@ -208,7 +189,7 @@ export const AuthProvider = ({ children }) => {
 
           const { error: insertError } = await supabase
             .from(TABLES.USERS)
-            .insert(newProfile);
+            .upsert(newProfile, { onConflict: 'id' }); // Use upsert to avoid duplicate key errors
 
           if (insertError) {
             console.error("getUserProfile: Error inserting new profile into custom users table:", insertError);
