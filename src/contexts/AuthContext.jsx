@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase, TABLES, PLAN_TYPES } from '../config/supabase';
 
@@ -37,6 +38,11 @@ export const AuthProvider = ({ children }) => {
         throw error;
       }
       console.log("signUp: Supabase auth signUp successful, data:", data);
+
+      if (data.user) {
+        // After successful auth signup, call getUserProfile to ensure custom profile is created/updated
+        await getUserProfile(data.user.id);
+      }
 
       return { data, error: null };
     } catch (error) {
@@ -371,4 +377,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 
