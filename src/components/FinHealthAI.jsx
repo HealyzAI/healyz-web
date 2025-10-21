@@ -28,6 +28,12 @@ const FinHealthAI = () => {
   const [loading, setLoading] = useState(false);
   const [selectedBNPLMonths, setSelectedBNPLMonths] = useState(6);
 
+  useEffect(() => {
+    if (results && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [results]);
+
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
@@ -81,7 +87,7 @@ const FinHealthAI = () => {
       }
     }
     
-    setLoading(false);
+    setTimeout(() => setLoading(false), 100);
 
   };
 
