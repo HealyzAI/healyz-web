@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { User, Settings, CreditCard, History, LogOut, Edit, Save, X, Crown, Calendar, Mail } from 'lucide-react';
 
 const MyAccount = () => {
   const { currentUser, userProfile, signOut, getUserPredictions } = useAuth();
+  const navigate = useNavigate();
   const [aiResults, setAiResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState(false);
@@ -308,7 +310,10 @@ const MyAccount = () => {
                     )}
                   </div>
                 )}
-                <button className="mt-4 w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors">
+                <button
+                  onClick={() => navigate('/pricing')}
+                  className="mt-4 w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors"
+                >
                   {userProfile?.plan === 'free' ? 'Upgrade Plan' : 'Manage Subscription'}
                 </button>
               </div>

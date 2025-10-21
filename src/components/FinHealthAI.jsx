@@ -45,6 +45,8 @@ const FinHealthAI = () => {
     }
     
     setLoading(true);
+    setResults(null); // Clear previous results when new submission starts
+
     
     // Simulate AI processing delay
     await new Promise(resolve => setTimeout(resolve, 2000));
@@ -80,6 +82,7 @@ const FinHealthAI = () => {
     }
     
     setLoading(false);
+
   };
 
   const downloadPDF = async () => {
