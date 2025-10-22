@@ -31,6 +31,7 @@ const FinHealthAI = () => {
   useEffect(() => {
     if (results && resultsRef.current) {
       resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+      setLoading(false); // Set loading to false once results are available and scrolled to
     }
   }, [results]);
 
@@ -87,7 +88,7 @@ const FinHealthAI = () => {
       }
     }
     
-    setTimeout(() => setLoading(false), 100);
+
 
   };
 
