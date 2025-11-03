@@ -73,10 +73,14 @@ export const AuthProvider = ({ children }) => {
     try {
 
       const { error } = await supabase.auth.signOut();
-      if (error) throw error;
       
+      // Always clear client-side state regardless of Supabase error, 
+      // as the user might be partially logged out or the error is transient.
       setCurrentUser(null);
       setUserProfile(null);
+
+      if (error) throw error;
+      
       return { error: null };
     } catch (error) {
       console.error('Sign out error:', error);
