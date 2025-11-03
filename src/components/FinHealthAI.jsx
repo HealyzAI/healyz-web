@@ -27,11 +27,9 @@ const FinHealthAI = () => {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedBNPLMonths, setSelectedBNPLMonths] = useState(6);
-
   useEffect(() => {
     if (results && resultsRef.current) {
       resultsRef.current.scrollIntoView({ behavior: 'smooth' });
-      setLoading(false); // Set loading to false once results are available and scrolled to
     }
   }, [results]);
 
@@ -55,40 +53,45 @@ const FinHealthAI = () => {
     setResults(null); // Clear previous results when new submission starts
 
     
-    // Simulate AI processing delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const predictedCost = predictHealthcareCosts(formData);
-    const insuranceRecommendations = recommendInsurance(formData, predictedCost);
-    const riskAssessment = getRiskAssessment(formData, predictedCost);
-    const bnplOptions = calculateBNPL(predictedCost, selectedBNPLMonths);
-    
-    const results = {
-      predictedCost,
-      insuranceRecommendations,
-      riskAssessment,
-      bnplOptions,
-      userPlan: userProfile?.plan || 'starter'
-    };
-    
-    setResults(results);
-    
-    // Save prediction to database if user is logged in
-    if (currentUser) {
-      try {
-        await savePrediction({
-          formData,
-          results,
-          timestamp: new Date().toISOString(),
-          type: userProfile?.plan === 'starter' || !userProfile?.plan ? 'basic' : 
-                userProfile?.plan === 'plus' ? 'plus' : 'detailed'
-        });
-      } catch (error) {
-        console.error('Error saving prediction:', error);
+    try {
+      // Simulate AI processing delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      const predictedCost = predictHealthcareCosts(formData);
+      const insuranceRecommendations = recommendInsurance(formData, predictedCost);
+      const riskAssessment = getRiskAssessment(formData, predictedCost);
+      const bnplOptions = calculateBNPL(predictedCost, selectedBNPLMonths);
+      
+      const results = {
+        predictedCost,
+        insuranceRecommendations,
+        riskAssessment,
+        bnplOptions,
+        userPlan: userProfile?.plan || 'starter'
+      };
+      
+      setResults(results);
+      
+      // Save prediction to database if user is logged in
+      if (currentUser) {
+        try {
+          await savePrediction({
+            formData,
+            results,
+            timestamp: new Date().toISOString(),
+            type: userProfile?.plan === 'starter' || !userProfile?.plan ? 'basic' : 
+                  userProfile?.plan === 'plus' ? 'plus' : 'detailed'
+          });
+        } catch (error) {
+          console.error('Error saving prediction:', error);
+        }
       }
+    } catch (error) {
+      console.error('Error during AI prediction:', error);
+      // Optionally set an error state here
+    } finally {
+      setTimeout(() => setLoading(false), 100);
     }
-    
-
 
   };
 
@@ -144,7 +147,9 @@ const FinHealthAI = () => {
       console.error('Error generating PDF:', error);
       alert('Error generating PDF. Please try again.');
     }
-    */
+    
+    setTimeout(() => setLoading(false), 100);
+
   };
 
   const renderBasicResults = () => (
