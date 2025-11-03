@@ -326,28 +326,56 @@ export const AuthProvider = ({ children }) => {
            userProfile?.plan === PLAN_TYPES.ENTERPRISE;
   };
 
-  // Listen for auth state changes
+  // Initial load and auth state listener
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log("Auth state change:", event, session?.user);
+    const getInitialSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
         
+        if (error) throw error;
+
         if (session?.user) {
           setCurrentUser(session.user);
-          console.log("Current user set:", session.user);
+          console.log("Initial session user set:", session.user);
           
           // Get user profile
           let profile = await getUserProfile(session.user.id);
-          console.log("User profile fetched:", profile);
+          console.log("Initial session user profile fetched:", profile);
           
           setUserProfile(profile);
-          console.log("User profile set:", profile);
+          console.log("Initial session user profile set:", profile);
         } else {
+          setCurrentUser(null);
+          setUserProfile(null);
+          console.log("No initial session found.");
+        }
+      } catch (error) {
+        console.error("Error getting initial session:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getInitialSession();
+
+    // Listen for auth state changes (sign in/out)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        console.log("Auth state change:", event, session?.user);
+        
+        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+          setCurrentUser(session.user);
+          getUserProfile(session.user.id).then(profile => {
+            setUserProfile(profile);
+            console.log("Auth state change user profile set:", profile);
+          });
+        } else if (event === 'SIGNED_OUT') {
           setCurrentUser(null);
           setUserProfile(null);
           console.log("User logged out");
         }
-        setLoading(false);
+        // Note: setLoading(false) is handled by getInitialSession for the first load
+        // and is not strictly necessary here as the page is already loaded.
       }
     );
 
