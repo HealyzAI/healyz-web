@@ -174,9 +174,9 @@ const Pricing = () => {
                 plan.popular ? 'border-primary shadow-lg scale-105' : 'border-gray-200'
               } ${plan.current ? 'bg-primary/5' : ''}`}>
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-40">
-                    <div className="bg-primary text-white px-4 py-1 rounded-full text-sm font-medium flex items-center justify-center space-x-1 shadow-md">
-                      <Star className="w-4 h-4" />
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider shadow-lg flex items-center space-x-1">
+                      <Star className="w-3 h-3 fill-current" />
                       <span>Most Popular</span>
                     </div>
                   </div>
