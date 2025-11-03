@@ -177,7 +177,7 @@ const FinHealthAI = () => {
           <div className="text-center">
             <Lock className="w-12 h-12 text-primary mx-auto mb-4" />
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              🔓 Unlock Detailed Predictions & Insurance Suggestions
+               Unlock Detailed Predictions & Insurance Suggestions
             </h3>
             <p className="text-gray-600 mb-4">
               Get comprehensive cost breakdown, personalized insurance recommendations, and BNPL options with Plus Plan or higher
@@ -361,7 +361,7 @@ const FinHealthAI = () => {
           <div className="text-center">
             <Crown className="w-12 h-12 text-orange-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              🚀 Unlock Advanced Features with Premium
+               Unlock Advanced Features with Premium
             </h3>
             <p className="text-gray-600 mb-4">
               Get personalized AI nutrition, wearable integration, advanced dashboard, and 24/7 support

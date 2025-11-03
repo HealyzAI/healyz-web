@@ -276,7 +276,7 @@ const Pricing = () => {
                     onClick={closeTooltip}
                     className="text-gray-400 hover:text-gray-600 text-2xl"
                   >
-                    ×
+                    
                   </button>
                 </div>
                 
