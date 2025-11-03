@@ -100,7 +100,7 @@ const FinHealthAI = () => {
     alert('PDF download feature coming soon!');
     return;
     
-    /*
+  // /*
     if (!resultsRef.current || !hasPremiumAccess()) {
       return;
     }
@@ -164,7 +164,7 @@ const FinHealthAI = () => {
         <CardContent>
           <div className="text-center">
             <p className="text-3xl font-bold text-gray-900 mb-2">
-              ${Math.floor(results.predictedCost * 0.7).toLocaleString()} - ${Math.floor(results.predictedCost * 1.3).toLocaleString()}
+              {'$' + Math.floor(results.predictedCost * 0.7).toLocaleString()} - {'$' + Math.floor(results.predictedCost * 1.3).toLocaleString()}
             </p>
             <p className="text-gray-600">Estimated annual healthcare costs</p>
           </div>
@@ -215,27 +215,27 @@ const FinHealthAI = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Routine Care</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.3).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.3).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Medications</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.25).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.25).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Specialist Visits</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.2).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.2).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Emergency/Urgent Care</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.15).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.15).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Preventive Care</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.1).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.1).toLocaleString()}</span>
                 </div>
                 <div className="border-t pt-2 flex justify-between font-bold">
                   <span>Total Estimated Cost</span>
-                  <span className="text-primary">${results.predictedCost.toLocaleString()}</span>
+                  <span className="text-primary">{'$' + results.predictedCost.toLocaleString()}</span>
                 </div>
               </div>
             </div>
@@ -281,14 +281,14 @@ const FinHealthAI = () => {
               }`}>
                 <div className="text-center mb-3">
                   <h4 className="font-bold text-lg">{plan.name}</h4>
-                  <p className="text-2xl font-bold text-primary">${plan.monthlyPremium}</p>
+                  <p className="text-2xl font-bold text-primary">{'$' + plan.monthlyPremium}</p>
                   <p className="text-sm text-gray-600">per month</p>
                 </div>
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
                     <span>Deductible</span>
-                    <span className="font-medium">${plan.deductible.toLocaleString()}</span>
+                    <span className="font-medium">{'$' + plan.deductible.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Coverage</span>
@@ -333,11 +333,11 @@ const FinHealthAI = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>Total Amount</span>
-                      <span className="font-medium">${results.predictedCost.toLocaleString()}</span>
+                      <span className="font-medium">{'$' + results.predictedCost.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Monthly Payment (6 months)</span>
-                      <span className="font-medium text-primary">${Math.floor(results.predictedCost / 6).toLocaleString()}</span>
+                      <span className="font-medium text-primary">{'$' + Math.floor(results.predictedCost / 6).toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Interest Rate</span>
@@ -399,27 +399,27 @@ const FinHealthAI = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Routine Care</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.3).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.3).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Medications</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.25).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.25).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Specialist Visits</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.2).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.2).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Emergency/Urgent Care</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.15).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.15).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Preventive Care</span>
-                  <span className="font-medium">${Math.floor(results.predictedCost * 0.1).toLocaleString()}</span>
+                  <span className="font-medium">{'$' + Math.floor(results.predictedCost * 0.1).toLocaleString()}</span>
                 </div>
                 <div className="border-t pt-2 flex justify-between font-bold">
                   <span>Total Estimated Cost</span>
-                  <span className="text-primary">${results.predictedCost.toLocaleString()}</span>
+                  <span className="text-primary">{'$' + results.predictedCost.toLocaleString()}</span>
                 </div>
               </div>
             </div>
@@ -477,18 +477,18 @@ const FinHealthAI = () => {
               }`}>
                 <div className="text-center mb-3">
                   <h4 className="font-bold text-lg">{plan.name}</h4>
-                  <p className="text-2xl font-bold text-primary">${plan.monthlyPremium}</p>
+                  <p className="text-2xl font-bold text-primary">{'$' + plan.monthlyPremium}</p>
                   <p className="text-sm text-gray-600">per month</p>
                 </div>
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
                     <span>Deductible</span>
-                    <span className="font-medium">${plan.deductible.toLocaleString()}</span>
+                    <span className="font-medium">{'$' + plan.deductible.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Out-of-pocket max</span>
-                    <span className="font-medium">${plan.outOfPocketMax.toLocaleString()}</span>
+                    <span className="font-medium">{'$' + plan.outOfPocketMax.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Coverage</span>
@@ -548,11 +548,11 @@ const FinHealthAI = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>Total Amount</span>
-                      <span className="font-medium">${results.predictedCost.toLocaleString()}</span>
+                      <span className="font-medium">{'$' + results.predictedCost.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Monthly Payment</span>
-                      <span className="font-medium text-primary">${results.bnplOptions.monthlyPayment.toLocaleString()}</span>
+                      <span className="font-medium text-primary">{'$' + results.bnplOptions.monthlyPayment.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Interest Rate</span>
@@ -560,7 +560,7 @@ const FinHealthAI = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>Total with Interest</span>
-                      <span className="font-medium">${results.bnplOptions.totalWithInterest.toLocaleString()}</span>
+                      <span className="font-medium">{'$' + results.bnplOptions.totalWithInterest.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
