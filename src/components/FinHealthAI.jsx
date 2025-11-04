@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DollarSign, ShieldCheck, CreditCard, Activity, TrendingUp, Calculator, AlertCircle, CheckCircle, Lock, Crown, Download } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
